@@ -1,6 +1,7 @@
 import { Template } from 'meteor/templating'
 
 import './GetPatientList.html'
+import Patients from '../import/mongo.js'
 
 Template.GetPatientList.onCreated(function () {
 	Session.set('patientSearchList', [])
@@ -33,6 +34,7 @@ Template.GetPatientList.events({
 	'click #addPatient' : function(event) {
 		event.preventDefault()
 
-		console.log(this)
+        console.log(this)
+        Meteor.call('SavePatient',this)
 	}
 })

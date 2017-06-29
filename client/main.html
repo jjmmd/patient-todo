@@ -4,8 +4,24 @@
 
 <body>
   {{> GetPatientList}}
-  <hr>
+  <hr />
   {{> SelectPatient}}
+
+
+  {{> MongoList}}
 </body>
 
 
+<template name="MongoList">
+    <button id="clear"> clear all </button>
+    Saved Patients:
+    <ol>
+        {{#each patients}}
+        <li>
+            {{#each resource.name}}
+            {{family}}, {{given}}
+            {{/each}}
+        </li>
+        {{/each}}
+    </ol>
+</template>
