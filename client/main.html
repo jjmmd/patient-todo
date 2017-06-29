@@ -4,16 +4,8 @@
 
 <body>
   {{> GetPatientList}}
+  <hr>
+  {{> SelectPatient}}
 </body>
 
-<template name="GetPatientList">
-  <form>
-    <input type="text" id="patientName">
-    <button type="submit" id="patientSearch">Search for Patient</button>
-  </form>
-  <hr>
-  {{#each patientSearchResults}}
-    Patient:
-    {{patientDisplayName}}
-  {{/each}}
-</template>
+

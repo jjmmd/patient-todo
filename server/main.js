@@ -9,7 +9,23 @@ Meteor.methods({
 		
 		return JSON.parse(result.content)
 	},
-	FHIRcareplan : function () {
-		return
+	FHIRcareplan : function (task) {
+		let CarePlan = {
+			"resourceType" : "CarePlan",
+			"status" : "active",
+			"activity" : [
+				{
+					"detail" : {
+						"status" : "in-progress",
+						"scheduledString" : "Today",
+						"description" : "Task #1"
+					}
+				}
+			],
+			"note" : [{"key" : "value"}],
+			"text" : task
+		}
+
+		return CarePlan
 	}
 })
