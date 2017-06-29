@@ -9,6 +9,9 @@ Template.GetPatientList.onCreated(function () {
 Template.GetPatientList.helpers({
 	patientSearchResults : function () {
 		return Session.get('patientSearchList')
+	},
+	patientDisplayName : function () {
+		return this.resource.birthDate
 	}
 })
 
@@ -19,7 +22,8 @@ Template.GetPatientList.events({
 		let name = $('#patientName').val()
 		Meteor.call('FHIRpatientSearch', name, function(err, res) {
 			//console.log(err)
-			console.log(res)
+			console.log(res.entry)
+			Session.set('patientSearchList', res.entry)
 		})
 	}
 })
