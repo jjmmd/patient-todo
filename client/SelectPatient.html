@@ -1,24 +1,34 @@
 <template name="SelectPatient">
 	<div class="col-md-6">
 	    <h2>Patient List</h2>
-	    <ul>
+	    <div class="list-group">
 	        {{#each patients}}
-	        <li>
-	        	<a class="chosenPatient">
-	        		<h3 style="display:inline-block">
-		            {{#each resource.name}}
-		            {{family}}, {{given}}
-		            {{/each}}
-		        	</h3>
-	        	</a>
-	            <button class="btn btn-sm" id="removePatient" name="{{resource.id}}">Remove Patient</button>
-	        </li>
+	        <button class="list-group-item chosenPatient">
+	            {{#each resource.name}}
+	            {{family}}, {{given}}
+	            {{/each}}
+	            <span class="btn badge" id="removePatient" name="{{resource.id}}">Remove Patient</span>
+	        </button>
 	        {{/each}}
-	    </ul>
+	    </div>
 	</div>
 	<div class="col-md-6">
-		{{#if selectedPatient}}
-			{{> PatientToDo patient=selectedPatient}}
-		{{/if}}
+		<h2>Todo List</h2>
+		<form class="input-group">
+			<input type="text" class="form-control" id="newTask" placeholder="Type to add new tasks" autocomplete="off" />
+			<span class="input-group-btn">
+				<button class="btn btn-default">Add Task</button>
+			</span>
+		</form>
+		<hr>
+		<h5>Click on an active task below to complete it</h5>
+		<div class="list-group">
+			{{#each patientTasks}}
+			<button class="list-group-item {{#if completed}}list-group-item-danger{{else}}list-group-item-success{{/if}}" id="completeTask">
+				{{this.resource.description}}
+				<span class="badge">{{this.resource.status}}</span>
+			</button>
+			{{/each}}
+		</div>
 	</div>
 </template>

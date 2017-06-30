@@ -1,7 +1,5 @@
-import { Meteor } from 'meteor/meteor';
-
+import { Meteor } from 'meteor/meteor'
 import { HTTP } from 'meteor/http'
-
 import { Patients } from '../import/mongo.js'
 
 Meteor.methods({
@@ -11,23 +9,27 @@ Meteor.methods({
 		
 		return JSON.parse(result.content)
 	},
-	FHIRcareplan : function (task, patientId) {
+	FHIRaddCarePlan : function (task, patientId) {
 
 		let CarePlan = {
 			"resourceType" : "CarePlan",
 			"status" : "active",
-			"intent" : "plan",
 			"subject" : {
 				"reference" : "Patient/" + patientId
 			},
-			"text" : task
-		}
+			"description" : task
+			}
 
-		console.log(task)
-		console.log(patientId)
-		//HTTP.call('POST', "http://learnfhir.aidbox.io/fhir/CarePlan")
-
-		return CarePlan
+		HTTP.call('POST', "http://learnfhir.aidbox.io/fhir/CarePlan", { data: CarePlan })
+		return
+    },
+    FHIRgetCarePlan : function (patientId) {
+		let result = HTTP.call('GET', "http://learnfhir.aidbox.io/fhir/CarePlan?patient=" + patientId)
+		return JSON.parse(result.content)
+    },
+    FHIRcompleteCarePlan : function (carePlan) {
+    	carePlan.status = "completed"
+    	HTTP.call('PUT', "http://learnfhir.aidbox.io/fhir/CarePlan/" + carePlan.id, { data : carePlan })
     },
     AddPatient : function (patientObject) { // Just throw the whole patient object in Mongo as-is. Mongo can take it. 
         Patients.insert(patientObject)
