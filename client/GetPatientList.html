@@ -1,11 +1,16 @@
 <template name="GetPatientList">
-  <form>
-    <input type="text" id="patientName">
-    <button type="submit" id="patientSearch">Search for Patient</button>
-  </form>
-  {{#each patientSearchResults}}
-    <ul>
-      <li>{{patientFirstName}} {{patientLastName}} <button id="addPatient" name="{{patientId}}">Add Patient</button></li>
-    </ul>
-  {{/each}}
+	<form class="input-group" style="width:50%">
+		<input class="form-control" type="text" id="patientName" placeholder="Patient Last Name" autocomplete="off" />
+		<span class="input-group-btn">
+			<button class="btn btn-default" type="submit" id="patientSearch">Search for Patient</button>
+		</span>
+	</form>
+	<br>
+	{{#if patientSearchResults}}
+		{{#each patientSearchResults}}
+			<ul>
+	      		<li>{{patientFirstName}} {{patientLastName}} <button class="btn btn-sm" id="addPatient" name="{{patientId}}">Add Patient</button></li>
+			</ul>
+	  	{{/each}}
+	{{/if}}
 </template>

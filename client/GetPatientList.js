@@ -28,13 +28,16 @@ Template.GetPatientList.events({
 
 		let name = $('#patientName').val()
 		Meteor.call('FHIRpatientSearch', name, function(err, res) {
-			Session.set('patientSearchList', res.entry)
+			if(res.total == "0") {
+				Session.set('patientSearchList', null)
+			} else {
+				Session.set('patientSearchList', res.entry)
+			}
 		})
 	},
 	'click #addPatient' : function(event) {
 		event.preventDefault()
 
-        console.log(this)
-        Meteor.call('SavePatient',this)
+        Meteor.call('AddPatient',this)
 	}
 })
