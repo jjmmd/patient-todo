@@ -30,7 +30,7 @@ Template.SelectPatient.helpers({
 Template.SelectPatient.events({
     'click #removePatient' : function (event) {
         event.preventDefault()
-        Meteor.call('RemovePatient', this.id)
+        Meteor.call('RemovePatient', this._id)
     },
     'click .chosenPatient' : function () {
     	Session.set('selectedPatient', this.resource.id)

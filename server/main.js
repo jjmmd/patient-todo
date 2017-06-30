@@ -35,6 +35,6 @@ Meteor.methods({
         Patients.insert(patientObject)
     },
     RemovePatient : function (patientId) { // Delete a patient from the list
-        Patients.remove({ id : patientId })
+        Patients.remove({ _id : patientId })
     }
 })
