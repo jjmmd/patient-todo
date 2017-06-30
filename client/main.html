@@ -3,25 +3,11 @@
 </head>
 
 <body>
-  {{> GetPatientList}}
-  <hr />
-  {{> SelectPatient}}
-
-
-  {{> MongoList}}
+	<div class="container">
+		<h1 class="text-center">Patient Task Manager</h1>
+		<hr>
+		{{> GetPatientList}}
+		<hr>
+		{{> SelectPatient}}
+	</div>
 </body>
-
-
-<template name="MongoList">
-    <button id="clear"> clear all </button>
-    Saved Patients:
-    <ol>
-        {{#each patients}}
-        <li>
-            {{#each resource.name}}
-            {{family}}, {{given}}
-            {{/each}}
-        </li>
-        {{/each}}
-    </ol>
-</template>

@@ -11,31 +11,28 @@ Meteor.methods({
 		
 		return JSON.parse(result.content)
 	},
-	FHIRcareplan : function (task) {
+	FHIRcareplan : function (task, patientId) {
+
 		let CarePlan = {
 			"resourceType" : "CarePlan",
 			"status" : "active",
-			"activity" : [
-				{
-					"detail" : {
-						"status" : "in-progress",
-						"scheduledString" : "Today",
-						"description" : "Task #1"
-					}
-				}
-			],
-			"note" : [{"key" : "value"}],
+			"intent" : "plan",
+			"subject" : {
+				"reference" : "Patient/" + patientId
+			},
 			"text" : task
 		}
 
+		console.log(task)
+		console.log(patientId)
+		//HTTP.call('POST', "http://learnfhir.aidbox.io/fhir/CarePlan")
+
 		return CarePlan
     },
-
-    SavePatient : function (patientObject) { // Just throw the whole patient object in Mongo as-is. Mongo can take it. 
+    AddPatient : function (patientObject) { // Just throw the whole patient object in Mongo as-is. Mongo can take it. 
         Patients.insert(patientObject)
     },
-
-    ResetPatientList : function () { // Drop the whole thing for a reset
-        Patients.rawCollection().drop()
+    RemovePatient : function (patientId) { // Delete a patient from the list
+        Patients.remove({ id : patientId })
     }
 })
