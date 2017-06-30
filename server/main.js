@@ -32,7 +32,8 @@ Meteor.methods({
     AddPatient : function (patientObject) { // Just throw the whole patient object in Mongo as-is. Mongo can take it. 
         Patients.insert(patientObject)
     },
-    RemovePatient : function (patientId) { // Delete a patient from the list
-        Patients.remove({ id : patientId })
+    RemovePatient: function (patientId) { // Delete a patient from the list
+        //console.log("patID to remove: " + patientId)
+        Patients.remove({ _id : patientId })
     }
 })

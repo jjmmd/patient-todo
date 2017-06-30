@@ -20,7 +20,8 @@ Template.SelectPatient.events({
     'click #removePatient' : function (event) {
         event.preventDefault()
 
-        Meteor.call('RemovePatient', this.id)
+        Meteor.call('RemovePatient', this._id)
+        //console.log(this)
     },
     'click .chosenPatient' : function () {
     	Session.set('selectedPatient', this)
