@@ -6,8 +6,63 @@
 	<div class="container">
 		<h1 class="text-center">Patient Task Manager</h1>
 		<hr>
-		{{> GetPatientList}}
+		<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-md-6 center-block clearfix">
+				<form class="input-group">
+					<input class="form-control" type="text" id="patientName" placeholder="Patient Last Name" autocomplete="off" />
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="submit" id="patientSearch">Search for Patient</button>
+					</span>
+				</form>
+			</div>
+		</div>
+		<br>
+		<ul class="list-group">
+		{{#if patientSearchResults}}
+			{{#each patientSearchResults}}
+				<li class="list-group-item">{{patientFirstName}} {{patientLastName}} <span class="btn badge" id="addPatient" name="{{patientId}}">Add Patient</span></li>
+		  	{{/each}}
+		{{/if}}
+		</ul>
 		<hr>
-		{{> SelectPatient}}
+		<div class="col-md-6">
+		    <h2>Patient List</h2>
+		    <div class="list-group">
+		        {{#each patients}}
+		        <button class="list-group-item chosenPatient">
+		            {{#each resource.name}}
+		            {{family}}, {{given}}
+		            {{/each}}
+		            <span class="btn badge" id="removePatient" name="{{resource.id}}">Remove Patient</span>
+		        </button>
+		        {{/each}}
+		    </div>
+		</div>
+		<div class="col-md-6">
+			<h2>Todo List</h2>
+			<form class="input-group">
+				<input type="text" class="form-control" id="newTask" placeholder="Type to add new tasks" autocomplete="off" />
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="submit" id="addTask">Add Task</button>
+				</span>
+			</form>
+			<hr>
+			<ol class="list-group">
+				{{#each patientTasks}}
+				<li class="list-group-item {{#if status "completed"}}list-group-item-danger{{else}}list-group-item-success{{/if}}">
+					{{#if status "completed"}}
+						<del>{{this.resource.description}}</del>
+					{{else}}
+						{{this.resource.description}}
+					{{/if}}
+					<div class="pull-right">
+						<button class="btn btn-xs" id="toggleStatus">{{this.resource.status}}</button>
+						<button class="btn btn-xs" id="deleteTask">&times;</button>
+					</div>
+				</li>
+				{{/each}}
+			</ol>
+		</div>
 	</div>
 </body>
